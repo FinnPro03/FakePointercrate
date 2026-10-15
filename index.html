@@ -3,32 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FakePointercrate | Geometry Dash Demonlist</title>
+<title>Pointercrate</title>
 
 <style>
-:root {
-    --background: #f3f3f3;
-    --white: #fff;
-    --text: #333;
-    --muted: #777;
-    --border: #d8d8d8;
-    --accent: #e04b43;
-}
-
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    background: var(--background);
-    color: var(--text);
+    background: #f4f4f4;
+    color: #222;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 14px;
-}
-
-button, input, select {
-    font: inherit;
+    font-size: 16px;
 }
 
 a {
@@ -36,43 +23,37 @@ a {
     text-decoration: none;
 }
 
+button, select {
+    font: inherit;
+}
+
 /* HEADER */
 
 .header {
-    background: white;
+    background: #fff;
     border-bottom: 1px solid #ddd;
 }
 
 .header-inner {
-    max-width: 1200px;
-    min-height: 76px;
+    max-width: 1250px;
+    min-height: 88px;
     margin: auto;
-    padding: 12px 20px;
+    padding: 18px 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    gap: 24px;
+    justify-content: space-between;
+    gap: 28px;
 }
 
 .logo {
-    color: #292929;
-    font-size: 28px;
+    font-size: 34px;
     font-weight: 900;
     letter-spacing: -1.5px;
     white-space: nowrap;
 }
 
 .logo span {
-    color: var(--accent);
-}
-
-.logo-subtitle {
-    display: block;
-    margin-top: 3px;
-    font-size: 9px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    color: #888;
+    color: #222;
 }
 
 .header-links {
@@ -80,141 +61,98 @@ a {
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 20px;
-    font-size: 12px;
+    gap: 24px;
+    font-size: 15px;
+    font-weight: 600;
 }
 
 .header-links a:hover {
-    color: var(--accent);
+    text-decoration: underline;
 }
 
 .language {
-    padding: 8px;
-    background: white;
-    border: 1px solid #ddd;
+    padding: 9px 11px;
+    background: #fff;
+    color: #222;
+    border: 1px solid #ccc;
     cursor: pointer;
 }
 
-/* LIST NAVIGATION */
+/* LIST TABS */
 
 .navigation {
-    background: white;
-    border-bottom: 1px solid #d7d7d7;
+    background: #fff;
+    border-bottom: 1px solid #d5d5d5;
 }
 
 .navigation-inner {
-    max-width: 1200px;
+    max-width: 1250px;
     margin: auto;
-    padding: 0 20px;
+    padding: 0 24px;
     display: flex;
 }
 
 .tab {
-    padding: 17px 23px;
-    border: 0;
+    padding: 19px 25px;
+    border: none;
     border-bottom: 3px solid transparent;
     background: transparent;
-    color: #666;
-    font-weight: bold;
+    color: #333;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
 }
 
 .tab:hover {
-    color: var(--accent);
+    background: #f7f7f7;
 }
 
 .tab.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
+    color: #222;
+    border-bottom-color: #555;
 }
 
-/* MAIN PAGE */
+/* DEMONLIST */
 
 main {
-    max-width: 1200px;
+    max-width: 1250px;
     margin: 30px auto;
-    padding: 0 20px;
+    padding: 0 24px;
 }
-
-.page-heading {
-    margin-bottom: 22px;
-}
-
-.page-heading h1 {
-    margin: 0 0 9px;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
-}
-
-.page-heading p {
-    margin: 0;
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* SEARCH AND FILTER */
-
-.toolbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-}
-
-.filter {
-    width: 250px;
-    max-width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #ccc;
-    background: white;
-    outline: none;
-}
-
-.filter:focus {
-    border-color: #888;
-}
-
-.list-count {
-    color: #777;
-    font-size: 12px;
-}
-
-/* DEMON ENTRIES */
 
 .demon-list {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 13px;
 }
+
+/* DEMON CARDS */
 
 .demon-card {
     display: flex;
-    min-height: 140px;
-    padding: 10px;
-    gap: 17px;
-    background: white;
-    border: 1px dotted #c9c9c9;
-    transition: border-color 0.15s;
+    align-items: stretch;
+    min-height: 164px;
+    gap: 21px;
+    padding: 13px;
+    background: #fff;
+    border: 1px dotted #bdbdbd;
 }
 
 .demon-card:hover {
-    border-color: #999;
+    border-color: #888;
 }
 
 .thumbnail {
     position: relative;
-    flex: 0 0 190px;
-    min-height: 118px;
+    flex: 0 0 220px;
+    min-height: 136px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background:
-        radial-gradient(ellipse at 25% 25%, #e9a94b, transparent 35%),
-        radial-gradient(ellipse at 80% 75%, #bd375c, transparent 40%),
+        radial-gradient(ellipse at 25% 25%, #e6a650, transparent 35%),
+        radial-gradient(ellipse at 80% 75%, #a94765, transparent 40%),
         linear-gradient(135deg, #302047, #151725 65%, #44254e);
 }
 
@@ -228,9 +166,9 @@ main {
 
 .thumbnail-name {
     z-index: 1;
-    padding: 10px;
-    color: white;
-    font-size: 21px;
+    padding: 12px;
+    color: #fff;
+    font-size: 23px;
     font-weight: 900;
     text-align: center;
     overflow-wrap: anywhere;
@@ -238,108 +176,96 @@ main {
 }
 
 .demon-info {
-    min-width: 0;
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .demon-title {
-    margin: 0 0 9px;
-    font-size: 21px;
+    margin: 0 0 11px;
+    font-size: 25px;
     line-height: 1.3;
-    font-weight: bold;
+    font-weight: 800;
     overflow-wrap: anywhere;
 }
 
-.demon-title .rank {
-    color: #777;
-    margin-right: 5px;
+.rank {
+    color: #333;
+    margin-right: 7px;
 }
 
-.demon-title .name {
-    color: #292929;
+.demon-name {
+    color: #222;
 }
 
-.demon-title .name:hover {
-    color: var(--accent);
+.demon-name:hover {
+    text-decoration: underline;
 }
 
 .published {
-    color: #777;
-    font-size: 13px;
+    color: #555;
+    font-size: 16px;
 }
 
 .published strong {
-    color: #444;
-    font-weight: bold;
+    color: #222;
+    font-weight: 700;
 }
 
-/* EMPTY SEARCH RESULTS */
+/* MOBILE */
 
-.empty {
-    padding: 35px 20px;
-    background: white;
-    border: 1px dotted #ccc;
-    color: #777;
-    text-align: center;
-}
-
-/* FOOTER */
-
-footer {
-    max-width: 1160px;
-    margin: 35px auto 0;
-    padding: 20px;
-    border-top: 1px solid #ddd;
-    color: #888;
-    font-size: 11px;
-    line-height: 1.8;
-}
-
-footer strong {
-    color: #555;
-}
-
-/* RESPONSIVE LAYOUT */
-
-@media (max-width: 750px) {
+@media (max-width: 800px) {
     .header-inner {
         align-items: flex-start;
         flex-direction: column;
-        gap: 14px;
+        gap: 18px;
     }
 
     .header-links {
         justify-content: flex-start;
-        gap: 13px;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 540px) {
+    main {
+        margin-top: 18px;
+        padding: 0 10px;
+    }
+
+    .header-inner {
+        padding: 16px;
+    }
+
+    .logo {
+        font-size: 30px;
+    }
+
+    .header-links {
+        font-size: 13px;
+    }
+
+    .navigation-inner {
+        padding: 0 4px;
     }
 
     .tab {
         flex: 1;
-        padding: 16px 7px;
-        font-size: 12px;
-    }
-
-    .navigation-inner {
-        padding: 0 8px;
-    }
-
-    main {
-        margin-top: 22px;
-        padding: 0 12px;
+        padding: 16px 5px;
+        font-size: 13px;
     }
 
     .demon-card {
+        min-height: 120px;
         gap: 12px;
-        min-height: 115px;
         padding: 8px;
     }
 
     .thumbnail {
         flex-basis: 115px;
-        min-height: 100px;
+        min-height: 104px;
     }
 
     .thumbnail-name {
@@ -347,34 +273,26 @@ footer strong {
     }
 
     .demon-title {
-        font-size: 17px;
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .published {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 350px) {
+    .thumbnail {
+        flex-basis: 90px;
+    }
+
+    .demon-title {
+        font-size: 16px;
     }
 
     .published {
         font-size: 12px;
-    }
-
-    .filter {
-        width: 100%;
-    }
-
-    .toolbar {
-        align-items: stretch;
-        flex-direction: column;
-    }
-}
-
-@media (max-width: 380px) {
-    .thumbnail {
-        flex-basis: 92px;
-    }
-
-    .demon-title {
-        font-size: 15px;
-    }
-
-    .logo {
-        font-size: 25px;
     }
 }
 </style>
@@ -387,7 +305,6 @@ footer strong {
 
         <a href="#" class="logo">
             POINTER<span>CRATE</span>
-            <span class="logo-subtitle">FAKE DEMONLIST</span>
         </a>
 
         <nav class="header-links">
@@ -423,47 +340,21 @@ footer strong {
 </nav>
 
 <main id="demonlist">
-
-    <section class="page-heading">
-        <h1 id="heading">Geometry Dash Demonlist</h1>
-        <p id="description">
-            The hardest rated levels in Geometry Dash.
-        </p>
-    </section>
-
-    <section class="toolbar">
-        <span class="list-count" id="count"></span>
-
-        <input
-            class="filter"
-            id="filter"
-            type="search"
-            placeholder="Filter..."
-            autocomplete="off"
-            aria-label="Filter demons"
-        >
-    </section>
-
     <section class="demon-list" id="demon-list"></section>
-
 </main>
-
-<footer>
-    <strong>FakePointercrate</strong>
-    <br>
-    Personal Geometry Dash Demonlist project.
-    Unofficial and not affiliated with the original Pointercrate website.
-</footer>
 
 <script>
 "use strict";
 
-/* ========================================
-   DEMON DATA
+/*
+    EDIT YOUR DEMONLIST HERE.
 
-   Change names, publishers, ranks and image
-   URLs here. No scoring fields are used.
-======================================== */
+    rank: position in the selected list
+    name: demon name
+    publisher: level publisher
+    list: main, extended or legacy
+    image: thumbnail image URL, or "" for placeholder
+*/
 
 const demons = [
     {
@@ -544,7 +435,6 @@ const demons = [
         list: "extended",
         image: ""
     },
-
     {
         rank: 1,
         name: "Legacy Example",
@@ -554,39 +444,9 @@ const demons = [
     }
 ];
 
-/* ========================================
-   PAGE SETTINGS
-======================================== */
-
-const pageSettings = {
-    main: {
-        heading: "Geometry Dash Demonlist",
-        description:
-            "The hardest rated levels in Geometry Dash."
-    },
-
-    extended: {
-        heading: "Extended List",
-        description:
-            "Demons beyond the main section of the list."
-    },
-
-    legacy: {
-        heading: "Legacy List",
-        description:
-            "Former list entries kept for historical purposes."
-    }
-};
-
 let activeList = "main";
 
 const listElement = document.getElementById("demon-list");
-const filterInput = document.getElementById("filter");
-const countElement = document.getElementById("count");
-
-/* ========================================
-   CREATE DEMON ENTRY
-======================================== */
 
 function createDemonCard(demon) {
     const card = document.createElement("article");
@@ -597,7 +457,6 @@ function createDemonCard(demon) {
 
     if (demon.image) {
         const image = document.createElement("img");
-
         image.src = demon.image;
         image.alt = demon.name;
         image.loading = "lazy";
@@ -612,7 +471,6 @@ function createDemonCard(demon) {
     const thumbnailName = document.createElement("div");
     thumbnailName.className = "thumbnail-name";
     thumbnailName.textContent = demon.name;
-
     thumbnail.appendChild(thumbnailName);
 
     const info = document.createElement("div");
@@ -626,22 +484,22 @@ function createDemonCard(demon) {
     rank.textContent = "#" + demon.rank + " –";
 
     const name = document.createElement("a");
-    name.className = "name";
-    name.href = "#demon-" + slugify(demon.name);
+    name.className = "demon-name";
+    name.href = "#";
     name.textContent = demon.name;
-    name.title = demon.name;
 
     title.append(rank, name);
 
     const published = document.createElement("div");
     published.className = "published";
 
-    const label = document.createTextNode("published by ");
-
     const publisher = document.createElement("strong");
     publisher.textContent = demon.publisher;
 
-    published.append(label, publisher);
+    published.append(
+        document.createTextNode("published by "),
+        publisher
+    );
 
     info.append(title, published);
     card.append(thumbnail, info);
@@ -649,67 +507,17 @@ function createDemonCard(demon) {
     return card;
 }
 
-/* ========================================
-   CREATE URL-FRIENDLY DEMON IDENTIFIER
-======================================== */
-
-function slugify(name) {
-    return name
-        .toLowerCase()
-        .trim()
-        .replace(/[^a-z0-9]+/g, "-")
-        .replace(/^-|-$/g, "");
-}
-
-/* ========================================
-   RENDER DEMONLIST
-======================================== */
-
 function renderList() {
-    const query = filterInput.value.trim().toLowerCase();
-
-    const settings = pageSettings[activeList];
-
-    document.getElementById("heading").textContent =
-        settings.heading;
-
-    document.getElementById("description").textContent =
-        settings.description;
-
-    const filteredDemons = demons
+    const visibleDemons = demons
         .filter(demon => demon.list === activeList)
-        .filter(demon =>
-            demon.name.toLowerCase().includes(query) ||
-            demon.publisher.toLowerCase().includes(query)
-        )
         .sort((a, b) => a.rank - b.rank);
 
     listElement.replaceChildren();
 
-    countElement.textContent =
-        filteredDemons.length +
-        (filteredDemons.length === 1
-            ? " demon"
-            : " demons");
-
-    if (filteredDemons.length === 0) {
-        const empty = document.createElement("div");
-
-        empty.className = "empty";
-        empty.textContent = "No demons found.";
-
-        listElement.appendChild(empty);
-        return;
-    }
-
-    filteredDemons.forEach(demon => {
+    visibleDemons.forEach(demon => {
         listElement.appendChild(createDemonCard(demon));
     });
 }
-
-/* ========================================
-   SWITCH BETWEEN LISTS
-======================================== */
 
 document.querySelectorAll(".tab").forEach(button => {
     button.addEventListener("click", () => {
@@ -719,19 +527,9 @@ document.querySelectorAll(".tab").forEach(button => {
             tab.classList.toggle("active", tab === button);
         });
 
-        filterInput.value = "";
-
         renderList();
     });
 });
-
-/* ========================================
-   FILTER DEMONS
-======================================== */
-
-filterInput.addEventListener("input", renderList);
-
-/* INITIALIZE */
 
 renderList();
 </script>
