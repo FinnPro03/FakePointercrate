@@ -1,630 +1,608 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pointercrate</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pointercrate</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    margin: 0;
-    background: #f4f4f4;
-    color: #222;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 16px;
-}
+        body {
+            margin: 0;
+            background: #ffffff;
+            color: #222222;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 17px;
+        }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
+        a {
+            color: #222222;
+            text-decoration: none;
+        }
 
-button, select {
-    font: inherit;
-}
+        .top-header {
+            min-height: 76px;
+            padding: 0 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            border-bottom: 1px solid #dddddd;
+            background: #ffffff;
+        }
 
-/* HEADER */
+        .logo {
+            font-size: 29px;
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            white-space: nowrap;
+        }
 
-.header {
-    background: #fff;
-    border-bottom: 1px solid #ddd;
-}
+        .header-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 24px;
+            font-size: 15px;
+        }
 
-.header-inner {
-    max-width: 1250px;
-    min-height: 88px;
-    margin: auto;
-    padding: 18px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 28px;
-}
+        .header-links a:hover {
+            text-decoration: underline;
+        }
 
-.logo {
-    color: #222;
-    font-size: 34px;
-    font-weight: 900;
-    letter-spacing: -1.5px;
-    white-space: nowrap;
-}
+        .language-selector {
+            padding: 8px 10px;
+            border: 1px solid #dddddd;
+            border-radius: 3px;
+            background: #ffffff;
+            color: #222222;
+            font-size: 15px;
+        }
 
-.header-links {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: wrap;
-    gap: 24px;
-    font-size: 15px;
-    font-weight: 600;
-}
+        .tabs {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            padding: 0 5%;
+            border-bottom: 1px solid #d8d8d8;
+            background: #f7f7f7;
+        }
 
-.header-links a:hover {
-    text-decoration: underline;
-}
+        .tab {
+            padding: 19px 23px;
+            border: none;
+            border-bottom: 3px solid transparent;
+            background: transparent;
+            color: #444444;
+            font-size: 17px;
+            cursor: pointer;
+        }
 
-.language {
-    padding: 9px 11px;
-    background: #fff;
-    color: #222;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
+        .tab:hover {
+            background: #eeeeee;
+        }
 
-/* LIST TABS */
+        .tab.active {
+            border-bottom-color: #333333;
+            color: #111111;
+            font-weight: 700;
+        }
 
-.navigation {
-    background: #fff;
-    border-bottom: 1px solid #d5d5d5;
-}
+        .main-content {
+            width: 100%;
+            max-width: 1200px;
+            margin: 28px auto;
+            padding: 0 24px;
+        }
 
-.navigation-inner {
-    max-width: 1250px;
-    margin: auto;
-    padding: 0 24px;
-    display: flex;
-}
+        .demon-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
 
-.tab {
-    padding: 19px 25px;
-    border: none;
-    border-bottom: 3px solid transparent;
-    background: transparent;
-    color: #333;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-}
+        .demon-card {
+            display: flex;
+            min-height: 150px;
+            overflow: hidden;
+            border: 1px dotted #bdbdbd;
+            background: #ffffff;
+            transition: background 0.15s ease;
+        }
 
-.tab:hover {
-    background: #f7f7f7;
-}
+        .demon-card:hover {
+            background: #f8f8f8;
+        }
 
-.tab.active {
-    color: #222;
-    border-bottom-color: #555;
-}
+        .demon-thumbnail {
+            width: 240px;
+            min-width: 240px;
+            min-height: 150px;
+            align-self: stretch;
+            display: block;
+            object-fit: cover;
+            background: linear-gradient(135deg, #444444, #999999);
+        }
 
-/* DEMONLIST */
+        .thumbnail-placeholder {
+            width: 240px;
+            min-width: 240px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            background: linear-gradient(135deg, #454545, #888888);
+            color: #ffffff;
+            font-size: 19px;
+            font-weight: 700;
+            text-align: center;
+            overflow-wrap: anywhere;
+        }
 
-main {
-    max-width: 1250px;
-    margin: 30px auto;
-    padding: 0 24px;
-}
+        .demon-details {
+            flex: 1;
+            min-width: 0;
+            padding: 18px 23px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 9px;
+        }
 
-.demon-list {
-    display: flex;
-    flex-direction: column;
-    gap: 13px;
-}
+        .demon-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
 
-/* DEMON CARDS */
+        .demon-rank {
+            color: #555555;
+            font-size: 22px;
+            font-weight: 700;
+        }
 
-.demon-card {
-    display: flex;
-    align-items: stretch;
-    min-height: 164px;
-    gap: 21px;
-    padding: 13px;
-    background: #fff;
-    border: 1px dotted #bdbdbd;
-    transition: border-color 0.15s;
-}
+        .demon-name {
+            color: #171717;
+            font-size: 25px;
+            font-weight: 700;
+            overflow-wrap: anywhere;
+        }
 
-.demon-card:hover {
-    border-color: #888;
-}
+        .demon-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 28px;
+            color: #555555;
+            font-size: 16px;
+            line-height: 1.5;
+        }
 
-.thumbnail {
-    position: relative;
-    flex: 0 0 220px;
-    min-height: 136px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background:
-        radial-gradient(ellipse at 25% 25%, #e6a650, transparent 35%),
-        radial-gradient(ellipse at 80% 75%, #a94765, transparent 40%),
-        linear-gradient(135deg, #302047, #151725 65%, #44254e);
-}
+        .meta-label {
+            color: #333333;
+            font-weight: 700;
+        }
 
-.thumbnail img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .empty-list {
+            padding: 40px 20px;
+            border: 1px dotted #bdbdbd;
+            color: #666666;
+            text-align: center;
+            font-size: 18px;
+        }
 
-.thumbnail-name {
-    z-index: 1;
-    padding: 12px;
-    color: #fff;
-    font-size: 23px;
-    font-weight: 900;
-    text-align: center;
-    overflow-wrap: anywhere;
-    text-shadow: 0 2px 5px #000;
-}
+        @media (max-width: 760px) {
+            .top-header {
+                align-items: flex-start;
+                flex-direction: column;
+                padding: 20px 5%;
+            }
 
-.demon-info {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+            .header-links {
+                justify-content: flex-start;
+                gap: 14px;
+            }
 
-.demon-title {
-    margin: 0 0 11px;
-    font-size: 25px;
-    line-height: 1.3;
-    font-weight: 800;
-    overflow-wrap: anywhere;
-}
+            .tabs {
+                padding: 0 3%;
+            }
 
-.rank {
-    color: #333;
-    margin-right: 7px;
-}
+            .tab {
+                flex: 1;
+                padding: 15px 8px;
+                font-size: 15px;
+            }
 
-.demon-name {
-    color: #222;
-}
+            .main-content {
+                margin-top: 18px;
+                padding: 0 12px;
+            }
 
-.demon-name:hover {
-    text-decoration: underline;
-}
+            .demon-card {
+                min-height: 120px;
+            }
 
-.published {
-    color: #555;
-    font-size: 16px;
-}
+            .demon-thumbnail,
+            .thumbnail-placeholder {
+                width: 125px;
+                min-width: 125px;
+                min-height: 120px;
+            }
 
-.published strong {
-    color: #222;
-    font-weight: 700;
-}
+            .demon-details {
+                padding: 13px;
+                gap: 8px;
+            }
 
-/* MOBILE */
+            .demon-heading {
+                gap: 8px;
+            }
 
-@media (max-width: 800px) {
-    .header-inner {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 18px;
-    }
+            .demon-rank {
+                font-size: 18px;
+            }
 
-    .header-links {
-        justify-content: flex-start;
-        gap: 16px;
-    }
-}
+            .demon-name {
+                font-size: 20px;
+            }
 
-@media (max-width: 540px) {
-    main {
-        margin-top: 18px;
-        padding: 0 10px;
-    }
+            .demon-meta {
+                flex-direction: column;
+                gap: 3px;
+                font-size: 14px;
+            }
+        }
 
-    .header-inner {
-        padding: 16px;
-    }
+        @media (max-width: 420px) {
+            .demon-thumbnail,
+            .thumbnail-placeholder {
+                width: 100px;
+                min-width: 100px;
+            }
 
-    .logo {
-        font-size: 30px;
-    }
+            .demon-name {
+                font-size: 18px;
+            }
 
-    .header-links {
-        font-size: 13px;
-    }
-
-    .navigation-inner {
-        padding: 0 4px;
-    }
-
-    .tab {
-        flex: 1;
-        padding: 16px 5px;
-        font-size: 13px;
-    }
-
-    .demon-card {
-        min-height: 120px;
-        gap: 12px;
-        padding: 8px;
-    }
-
-    .thumbnail {
-        flex-basis: 115px;
-        min-height: 104px;
-    }
-
-    .thumbnail-name {
-        font-size: 15px;
-    }
-
-    .demon-title {
-        font-size: 18px;
-        margin-bottom: 8px;
-    }
-
-    .published {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 350px) {
-    .thumbnail {
-        flex-basis: 90px;
-    }
-
-    .demon-title {
-        font-size: 16px;
-    }
-
-    .published {
-        font-size: 12px;
-    }
-}
-</style>
+            .demon-details {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <header class="top-header">
+        <a class="logo" href="#" aria-label="Pointercrate home">
+            POINTERCRATE
+        </a>
 
-<header class="header">
-    <div class="header-inner">
+        <nav class="header-links" aria-label="Main navigation">
+            <a href="#">REST API Documentation</a>
+            <a href="#">Pointercrate User Area</a>
 
-        <a href="#" class="logo">POINTERCRATE</a>
-
-        <nav class="header-links">
-            <a href="#api">REST API Documentation</a>
-            <a href="#user-area">Pointercrate User Area</a>
-            <a href="#demonlist">Geometry Dash Demonlist</a>
-
-            <select class="language" aria-label="Language">
+            <select class="language-selector" aria-label="Language">
                 <option value="en">🇺🇸 EN</option>
-                <option value="de">🇩🇪 DE</option>
             </select>
         </nav>
+    </header>
 
-    </div>
-</header>
+    <nav class="tabs" aria-label="Demonlist categories">
+        <button class="tab active" data-list="main">Main List</button>
+        <button class="tab" data-list="extended">Extended List</button>
+        <button class="tab" data-list="legacy">Legacy List</button>
+    </nav>
 
-<nav class="navigation">
-    <div class="navigation-inner">
+    <main class="main-content">
+        <div class="demon-list" id="demonList"></div>
+    </main>
 
-        <button class="tab active" data-list="main">
-            Main List
-        </button>
+    <script>
+        const demons = [
+            {
+                rank: 1,
+                name: "Heliopolis",
+                creator: "MindCap",
+                verifier: "Zoink",
+                videoUrl: "https://youtu.be/7yaKGl_2Dsw?is=cVBpF0PJB98XM_qB",
+                list: "main"
+            },
+            {
+                rank: 2,
+                name: "Grief",
+                creator: "icedcave",
+                verifier: "Doggie",
+                videoUrl: "https://youtu.be/gB8slBPlOjc?is=dFdOndcUrbTbYa6f",
+                list: "main"
+            },
+            {
+                rank: 3,
+                name: "Society",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "https://youtu.be/3CoEaH1CM7o?is=dxgEGr4euh4hO-uT",
+                list: "main"
+            },
+            {
+                rank: 4,
+                name: "Thinking Space II",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 5,
+                name: "Amethyst",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 6,
+                name: "Flamewall",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 7,
+                name: "Tidal Wave",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 8,
+                name: "Green Bullet",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 9,
+                name: "ORBIT",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 10,
+                name: "Antarctic Lights",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 11,
+                name: "Nullscapes",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 12,
+                name: "Quanteuse Processing",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 13,
+                name: "BOOBAWAMBA",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 14,
+                name: "The Bloop",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 15,
+                name: "Every End",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 16,
+                name: "Ashley Wave Trials",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 17,
+                name: "Silent Clubstep",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 18,
+                name: "Ultra Paracosm",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 19,
+                name: "WAVING TORTURE",
+                creator: "WaMaster",
+                verifier: "Finn",
+                videoUrl: "",
+                list: "main"
+            },
+            {
+                rank: 20,
+                name: "Penumbral",
+                creator: "Unknown",
+                verifier: "Unknown",
+                videoUrl: "",
+                list: "main"
+            }
+        ];
 
-        <button class="tab" data-list="extended">
-            Extended List
-        </button>
+        function getYouTubeVideoId(url) {
+            if (!url) {
+                return "";
+            }
 
-        <button class="tab" data-list="legacy">
-            Legacy List
-        </button>
+            try {
+                const parsedUrl = new URL(url);
 
-    </div>
-</nav>
+                if (parsedUrl.hostname === "youtu.be") {
+                    return parsedUrl.pathname.slice(1);
+                }
 
-<main id="demonlist">
-    <section class="demon-list" id="demon-list"></section>
-</main>
+                if (
+                    parsedUrl.hostname.includes("youtube.com") ||
+                    parsedUrl.hostname.includes("youtube-nocookie.com")
+                ) {
+                    return parsedUrl.searchParams.get("v") || "";
+                }
+            } catch (error) {
+                return "";
+            }
 
-<script>
-"use strict";
+            return "";
+        }
 
-/* ==========================================
-   FAKEPOINTERCRATE DEMONLIST
+        function createDemonCard(demon) {
+            const card = document.createElement("article");
+            card.className = "demon-card";
 
-   Add and edit demons in this array.
-   Ranks are displayed in ascending order.
+            const videoId = getYouTubeVideoId(demon.videoUrl);
 
-   video contains a YouTube video ID.
-   The video thumbnail loads automatically.
-========================================== */
+            if (videoId) {
+                const thumbnail = document.createElement("img");
+                thumbnail.className = "demon-thumbnail";
 
-const demons = [
-    {
-        rank: 1,
-        name: "Heliopolis",
-        publisher: "Unknown",
-        list: "main",
-        video: "7yaKGl_2Dsw"
-    },
-    {
-        rank: 2,
-        name: "Grief",
-        publisher: "Unknown",
-        list: "main",
-        video: "gB8slBPlOjc"
-    },
-    {
-        rank: 3,
-        name: "Society",
-        publisher: "Unknown",
-        list: "main",
-        video: "3CoEaH1CM7o"
-    },
-    {
-        rank: 4,
-        name: "Thinking Space II",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 5,
-        name: "Amethyst",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 6,
-        name: "Flamewall",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 7,
-        name: "Tidal Wave",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 8,
-        name: "Green Bullet",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 9,
-        name: "ORBIT",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 10,
-        name: "Antarctic Lights",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 11,
-        name: "Nullscapes",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 12,
-        name: "Quanteuse Processing",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 13,
-        name: "BOOBAWAMBA",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 14,
-        name: "The Bloop",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 15,
-        name: "Every End",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 16,
-        name: "Ashley Wave Trials",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 17,
-        name: "Silent Clubstep",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 18,
-        name: "Ultra Paracosm",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 19,
-        name: "WAVING TORTURE",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    },
-    {
-        rank: 20,
-        name: "Penumbral",
-        publisher: "Unknown",
-        list: "main",
-        video: ""
-    }
-];
+                // The URL is used only to load the thumbnail.
+                // No video title or URL text is displayed.
+                thumbnail.src =
+                    "https://img.youtube.com/vi/" +
+                    encodeURIComponent(videoId) +
+                    "/hqdefault.jpg";
 
-/* ==========================================
-   LIST NAVIGATION
-========================================== */
+                thumbnail.alt = "";
+                thumbnail.loading = "lazy";
 
-let activeList = "main";
+                thumbnail.onerror = function () {
+                    const placeholder = document.createElement("div");
+                    placeholder.className = "thumbnail-placeholder";
+                    placeholder.textContent = demon.name;
+                    thumbnail.replaceWith(placeholder);
+                };
 
-const listElement = document.getElementById("demon-list");
+                card.appendChild(thumbnail);
+            } else {
+                const placeholder = document.createElement("div");
+                placeholder.className = "thumbnail-placeholder";
+                placeholder.textContent = demon.name;
+                card.appendChild(placeholder);
+            }
 
-/* ==========================================
-   THUMBNAIL URL
-========================================== */
+            const details = document.createElement("div");
+            details.className = "demon-details";
 
-function getThumbnailUrl(videoId) {
-    if (!videoId) {
-        return "";
-    }
+            const heading = document.createElement("div");
+            heading.className = "demon-heading";
 
-    return "https://img.youtube.com/vi/" +
-        encodeURIComponent(videoId) +
-        "/hqdefault.jpg";
-}
+            const rank = document.createElement("span");
+            rank.className = "demon-rank";
+            rank.textContent = "#" + demon.rank;
 
-/* ==========================================
-   CREATE DEMON CARD
-========================================== */
+            const name = document.createElement("span");
+            name.className = "demon-name";
+            name.textContent = demon.name;
 
-function createDemonCard(demon) {
-    const card = document.createElement("article");
-    card.className = "demon-card";
+            heading.appendChild(rank);
+            heading.appendChild(name);
 
-    /* Thumbnail */
+            const metadata = document.createElement("div");
+            metadata.className = "demon-meta";
 
-    const thumbnail = document.createElement("div");
-    thumbnail.className = "thumbnail";
+            const creator = document.createElement("span");
+            const creatorLabel = document.createElement("span");
+            creatorLabel.className = "meta-label";
+            creatorLabel.textContent = "Creator: ";
+            creator.appendChild(creatorLabel);
+            creator.appendChild(document.createTextNode(demon.creator));
 
-    const thumbnailUrl = getThumbnailUrl(demon.video);
+            const verifier = document.createElement("span");
+            const verifierLabel = document.createElement("span");
+            verifierLabel.className = "meta-label";
+            verifierLabel.textContent = "Verifier: ";
+            verifier.appendChild(verifierLabel);
+            verifier.appendChild(document.createTextNode(demon.verifier));
 
-    if (thumbnailUrl) {
-        const image = document.createElement("img");
+            metadata.appendChild(creator);
+            metadata.appendChild(verifier);
 
-        image.src = thumbnailUrl;
-        image.alt = demon.name + " thumbnail";
-        image.loading = "lazy";
+            details.appendChild(heading);
+            details.appendChild(metadata);
+            card.appendChild(details);
 
-        image.addEventListener("error", () => {
-            image.remove();
-        });
+            return card;
+        }
 
-        thumbnail.appendChild(image);
-    }
+        function renderList(listName) {
+            const demonList = document.getElementById("demonList");
+            demonList.replaceChildren();
 
-    const thumbnailName = document.createElement("div");
-    thumbnailName.className = "thumbnail-name";
-    thumbnailName.textContent = demon.name;
+            const filteredDemons = demons
+                .filter(demon => demon.list === listName)
+                .sort((a, b) => a.rank - b.rank);
 
-    thumbnail.appendChild(thumbnailName);
+            if (filteredDemons.length === 0) {
+                const emptyMessage = document.createElement("div");
+                emptyMessage.className = "empty-list";
+                emptyMessage.textContent = "No demons have been added to this list yet.";
+                demonList.appendChild(emptyMessage);
+                return;
+            }
 
-    /* Demon details */
-
-    const info = document.createElement("div");
-    info.className = "demon-info";
-
-    const title = document.createElement("h2");
-    title.className = "demon-title";
-
-    const rank = document.createElement("span");
-    rank.className = "rank";
-    rank.textContent = "#" + demon.rank + " –";
-
-    const name = document.createElement("a");
-    name.className = "demon-name";
-    name.href = "#";
-    name.textContent = demon.name;
-
-    title.append(rank, name);
-
-    const published = document.createElement("div");
-    published.className = "published";
-
-    const publisher = document.createElement("strong");
-    publisher.textContent = demon.publisher;
-
-    published.append(
-        document.createTextNode("published by "),
-        publisher
-    );
-
-    info.append(title, published);
-
-    card.append(thumbnail, info);
-
-    return card;
-}
-
-/* ==========================================
-   RENDER ACTIVE LIST
-========================================== */
-
-function renderList() {
-    const visibleDemons = demons
-        .filter(demon => demon.list === activeList)
-        .sort((a, b) => a.rank - b.rank);
-
-    listElement.replaceChildren();
-
-    visibleDemons.forEach(demon => {
-        listElement.appendChild(createDemonCard(demon));
-    });
-}
-
-/* ==========================================
-   SWITCH LIST TABS
-========================================== */
-
-document.querySelectorAll(".tab").forEach(button => {
-    button.addEventListener("click", () => {
-        activeList = button.dataset.list;
+            filteredDemons.forEach(demon => {
+                demonList.appendChild(createDemonCard(demon));
+            });
+        }
 
         document.querySelectorAll(".tab").forEach(tab => {
-            tab.classList.toggle("active", tab === button);
+            tab.addEventListener("click", function () {
+                document.querySelectorAll(".tab").forEach(otherTab => {
+                    otherTab.classList.remove("active");
+                });
+
+                this.classList.add("active");
+                renderList(this.dataset.list);
+            });
         });
 
-        renderList();
-    });
-});
-
-/* INITIALIZE */
-
-renderList();
-</script>
-
+        renderList("main");
+    </script>
 </body>
 </html>
