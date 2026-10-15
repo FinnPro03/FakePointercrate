@@ -46,14 +46,11 @@ button, select {
 }
 
 .logo {
+    color: #222;
     font-size: 34px;
     font-weight: 900;
     letter-spacing: -1.5px;
     white-space: nowrap;
-}
-
-.logo span {
-    color: #222;
 }
 
 .header-links {
@@ -136,6 +133,7 @@ main {
     padding: 13px;
     background: #fff;
     border: 1px dotted #bdbdbd;
+    transition: border-color 0.15s;
 }
 
 .demon-card:hover {
@@ -303,9 +301,7 @@ main {
 <header class="header">
     <div class="header-inner">
 
-        <a href="#" class="logo">
-            POINTER<span>CRATE</span>
-        </a>
+        <a href="#" class="logo">POINTERCRATE</a>
 
         <nav class="header-links">
             <a href="#api">REST API Documentation</a>
@@ -346,119 +342,201 @@ main {
 <script>
 "use strict";
 
-/*
-    EDIT YOUR DEMONLIST HERE.
+/* ==========================================
+   FAKEPOINTERCRATE DEMONLIST
 
-    rank: position in the selected list
-    name: demon name
-    publisher: level publisher
-    list: main, extended or legacy
-    image: thumbnail image URL, or "" for placeholder
-*/
+   Add and edit demons in this array.
+   Ranks are displayed in ascending order.
+
+   video contains a YouTube video ID.
+   The video thumbnail loads automatically.
+========================================== */
 
 const demons = [
     {
         rank: 1,
-        name: "Society",
-        publisher: "Neomarbilan",
+        name: "Heliopolis",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: "7yaKGl_2Dsw"
     },
     {
         rank: 2,
-        name: "Thinking Space II",
-        publisher: "CairoX",
+        name: "Grief",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: "gB8slBPlOjc"
     },
     {
         rank: 3,
-        name: "Amethyst",
-        publisher: "iMist",
+        name: "Society",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: "3CoEaH1CM7o"
     },
     {
         rank: 4,
-        name: "Flamewall",
-        publisher: "Narwall",
+        name: "Thinking Space II",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 5,
-        name: "Tidal Wave",
-        publisher: "OniLink",
+        name: "Amethyst",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 6,
-        name: "Green Bullet",
-        publisher: "cherryteam",
+        name: "Flamewall",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 7,
-        name: "ORBIT",
-        publisher: "MindCap",
+        name: "Tidal Wave",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 8,
-        name: "Antarctic Lights",
-        publisher: "declanlc",
+        name: "Green Bullet",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 9,
-        name: "Nullscapes",
-        publisher: "Kiba",
+        name: "ORBIT",
+        publisher: "Unknown",
         list: "main",
-        image: ""
+        video: ""
     },
     {
         rank: 10,
-        name: "Quanteuse processing",
-        publisher: "Renn241",
+        name: "Antarctic Lights",
+        publisher: "Unknown",
         list: "main",
-        image: ""
-    },
-
-    {
-        rank: 1,
-        name: "Extended Example",
-        publisher: "Example Creator",
-        list: "extended",
-        image: ""
+        video: ""
     },
     {
-        rank: 1,
-        name: "Legacy Example",
-        publisher: "Example Creator",
-        list: "legacy",
-        image: ""
+        rank: 11,
+        name: "Nullscapes",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 12,
+        name: "Quanteuse Processing",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 13,
+        name: "BOOBAWAMBA",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 14,
+        name: "The Bloop",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 15,
+        name: "Every End",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 16,
+        name: "Ashley Wave Trials",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 17,
+        name: "Silent Clubstep",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 18,
+        name: "Ultra Paracosm",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 19,
+        name: "WAVING TORTURE",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
+    },
+    {
+        rank: 20,
+        name: "Penumbral",
+        publisher: "Unknown",
+        list: "main",
+        video: ""
     }
 ];
+
+/* ==========================================
+   LIST NAVIGATION
+========================================== */
 
 let activeList = "main";
 
 const listElement = document.getElementById("demon-list");
 
+/* ==========================================
+   THUMBNAIL URL
+========================================== */
+
+function getThumbnailUrl(videoId) {
+    if (!videoId) {
+        return "";
+    }
+
+    return "https://img.youtube.com/vi/" +
+        encodeURIComponent(videoId) +
+        "/hqdefault.jpg";
+}
+
+/* ==========================================
+   CREATE DEMON CARD
+========================================== */
+
 function createDemonCard(demon) {
     const card = document.createElement("article");
     card.className = "demon-card";
 
+    /* Thumbnail */
+
     const thumbnail = document.createElement("div");
     thumbnail.className = "thumbnail";
 
-    if (demon.image) {
+    const thumbnailUrl = getThumbnailUrl(demon.video);
+
+    if (thumbnailUrl) {
         const image = document.createElement("img");
-        image.src = demon.image;
-        image.alt = demon.name;
+
+        image.src = thumbnailUrl;
+        image.alt = demon.name + " thumbnail";
         image.loading = "lazy";
 
         image.addEventListener("error", () => {
@@ -471,7 +549,10 @@ function createDemonCard(demon) {
     const thumbnailName = document.createElement("div");
     thumbnailName.className = "thumbnail-name";
     thumbnailName.textContent = demon.name;
+
     thumbnail.appendChild(thumbnailName);
+
+    /* Demon details */
 
     const info = document.createElement("div");
     info.className = "demon-info";
@@ -502,10 +583,15 @@ function createDemonCard(demon) {
     );
 
     info.append(title, published);
+
     card.append(thumbnail, info);
 
     return card;
 }
+
+/* ==========================================
+   RENDER ACTIVE LIST
+========================================== */
 
 function renderList() {
     const visibleDemons = demons
@@ -519,6 +605,10 @@ function renderList() {
     });
 }
 
+/* ==========================================
+   SWITCH LIST TABS
+========================================== */
+
 document.querySelectorAll(".tab").forEach(button => {
     button.addEventListener("click", () => {
         activeList = button.dataset.list;
@@ -530,6 +620,8 @@ document.querySelectorAll(".tab").forEach(button => {
         renderList();
     });
 });
+
+/* INITIALIZE */
 
 renderList();
 </script>
