@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FakePointercrate | Geometry Dash Demonlist</title>
+
+    <style>
+        :root {
+            --background: #f5f5f5;
+            --white: #ffffff;
+            --text: #303030;
+            --muted: #777777;
+            --border: #d8d8d8;
+            --accent: #d94a43;
+            --accent-dark: #b93630;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--background);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, input, select {
+            font: inherit;
+        }
+
+        /* HEADER */
+
+        .top-header {
+            min-height: 76px;
+            background: var(--white);
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header-inner {
+            max-width: 1250px;
+            min-height: 76px;
+            margin: auto;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 22px;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo small {
+            display: block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #888;
+            margin-top: 3px;
+        }
+
+        .header-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 23px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .header-links a:hover {
+            color: var(--accent);
+        }
+
+        .language {
+            border: 1px solid var(--border);
+            background: white;
+            padding: 8px 10px;
+            cursor: pointer;
+        }
+
+        /* NAVIGATION */
+
+        .subnav {
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .subnav-inner {
+            max-width: 1250px;
+            padding: 0 22px;
+            margin: auto;
+            display: flex;
+            gap: 0;
+        }
+
+        .tab {
+            border: none;
+            background: transparent;
+            padding: 18px 22px;
+            border-bottom: 3px solid transparent;
+            color: #666;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .tab:hover {
+            color: var(--accent);
+        }
+
+        .tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* PAGE LAYOUT */
+
+        .page {
+            max-width: 1250px;
+            margin: 28px auto;
+            padding: 0 22px;
+        }
+
+        .page-title {
+            margin-bottom: 22px;
+        }
+
+        .page-title h1 {
+            font-size: 29px;
+            margin: 0 0 8px;
+            letter-spacing: -0.7px;
+        }
+
+        .page-title p {
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 285px;
+            align-items: start;
+            gap: 25px;
+        }
+
+        /* DEMONLIST */
+
+        .list-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .list-count {
+            color: #777;
+            font-size: 12px;
+        }
+
+        .search {
+            width: 230px;
+            max-width: 100%;
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            background: white;
+            outline: none;
+        }
+
+        .search:focus {
+            border-color: var(--accent);
+        }
+
+        .demon-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .demon-card {
+            display: flex;
+            align-items: stretch;
+            min-height: 154px;
+            background: white;
+            border: 1px dotted #c8c8c8;
+            padding: 12px;
+            gap: 17px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .demon-card:hover {
+            border-color: #999;
+            box-shadow: 0 2px 8px #0000000a;
+        }
+
+        .thumbnail {
+            position: relative;
+            flex: 0 0 190px;
+            min-height: 125px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                radial-gradient(circle at 25% 30%, #ffbf61 0, transparent 22%),
+                radial-gradient(circle at 80% 70%, #f24e77 0, transparent 30%),
+                linear-gradient(135deg, #30204f, #101522 60%, #572d55);
+            color: white;
+            text-align: center;
+        }
+
+        .thumbnail img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            inset: 0;
+        }
+
+        .thumbnail .thumb-label {
+            z-index: 1;
+            padding: 8px;
+            font-size: 22px;
+            font-weight: 900;
+            text-shadow: 0 2px 5px black;
+            overflow-wrap: anywhere;
+        }
+
+        .thumbnail .rank-badge {
+            position: absolute;
+            z-index: 2;
+            top: 7px;
+            left: 7px;
+            background: #000000ad;
+            padding: 5px 8px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .demon-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .demon-heading {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .demon-rank {
+            font-size: 17px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .demon-name {
+            font-size: 20px;
+            line-height: 1.25;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .demon-name:hover {
+            color: var(--accent);
+        }
+
+        .creator {
+            color: #777;
+            font-size: 12px;
+            margin-bottom: 13px;
+        }
+
+        .creator strong {
+            color: #444;
+        }
+
+        .score-heading {
+            font-size: 10px;
+            font-weight: bold;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 6px;
+        }
+
+        .scores {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .score {
+            padding: 5px 7px;
+            background: #f3f3f3;
+            border: 1px solid #e8e8e8;
+            font-size: 11px;
+            color: #555;
+        }
+
+        .score strong {
+            color: #292929;
+        }
+
+        .score.primary {
+            background: #fff0ef;
+            border-color: #f1cfcc;
+            color: var(--accent-dark);
+        }
+
+        .score.primary strong {
+            color: var(--accent-dark);
+        }
+
+        .empty-state {
+            padding: 35px 20px;
+            text-align: center;
+            background: white;
+            border: 1px dotted var(--border);
+            color: #777;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+        }
+
+        .side-box {
+            background: white;
+            border: 1px dotted #c8c8c8;
+            padding: 18px;
+        }
+
+        .side-box h2 {
+            margin: 0 0 12px;
+            font-size: 17px;
+        }
+
+        .side-box p {
+            color: #777;
+            line-height: 1.65;
+            font-size: 12px;
+            margin: 0 0 14px;
+        }
+
+        .editor-list {
+            display: flex;
+            flex-direction: column;
+            gap: 11px;
+            padding-top: 3px;
+        }
+
+        .editor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .editor-name {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .editor-role {
+            font-size: 10px;
+            color: #999;
+        }
+
+        .editor:nth-child(2) .editor-name {
+            font-size: 15px;
+        }
+
+        .editor:nth-child(3) .editor-name {
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .editor:nth-child(4) .editor-name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .helper-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .helper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #eee;
+            font-size: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #63b783;
+            margin-right: 5px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            max-width: 1206px;
+            margin: 35px auto 0;
+            padding: 22px;
+            border-top: 1px solid #ddd;
+            color: #999;
+            font-size: 11px;
+            line-height: 1.8;
+        }
+
+        footer strong {
+            color: #666;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .sidebar {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .header-inner {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-links {
+                justify-content: flex-start;
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            .page {
+                margin-top: 20px;
+                padding: 0 12px;
+            }
+
+            .subnav-inner {
+                padding: 0 8px;
+            }
+
+            .tab {
+                flex: 1;
+                padding: 15px 6px;
+                font-size: 11px;
+            }
+
+            .demon-card {
+                gap: 11px;
+                padding: 9px;
+                min-height: 120px;
+            }
+
+            .thumbnail {
+                flex-basis: 105px;
+                min-height: 110px;
+            }
+
+            .thumbnail .thumb-label {
+                font-size: 15px;
+            }
+
+            .demon-name {
+                font-size: 16px;
+            }
+
+            .demon-rank {
+                font-size: 13px;
+            }
+
+            .demon-heading {
+                gap: 5px;
+            }
+
+            .creator {
+                font-size: 11px;
+                margin-bottom: 9px;
+            }
+
+            .score {
+                padding: 4px 5px;
+                font-size: 10px;
+            }
+
+            .sidebar {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .search {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header class="top-header">
+        <div class="header-inner">
+
+            <a href="#" class="logo">
+                POINTER<span>CRATE</span>
+                <small>FAKE DEMONLIST PROJECT</small>
+            </a>
+
+            <nav class="header-links">
+                <a href="#api">REST API Documentation</a>
+                <a href="#user-area">Pointercrate User Area</a>
+                <a href="#demonlist">Geometry Dash Demonlist</a>
+
+                <select class="language" aria-label="Language">
+                    <option value="en">🇺🇸 EN</option>
+                    <option value="de">🇩🇪 DE</option>
+                </select>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- DEMONLIST TABS -->
+
+    <nav class="subnav">
+        <div class="subnav-inner">
+            <button class="tab active" data-list="main">Main List</button>
+            <button class="tab" data-list="extended">Extended List</button>
+            <button class="tab" data-list="legacy">Legacy List</button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+
+    <main class="page" id="demonlist">
+
+        <div class="page-title">
+            <h1 id="page-heading">Geometry Dash Demonlist</h1>
+            <p id="page-description">
+                The hardest demons in Geometry Dash, ranked by difficulty.
+            </p>
+        </div>
+
+        <div class="content-grid">
+
+            <!-- LEFT COLUMN -->
+
+            <section class="main-column">
+
+                <div class="list-toolbar">
+                    <span class="list-count" id="list-count">
+                        Loading demons...
+                    </span>
+
+                    <input
+                        type="search"
+                        class="search"
+                        id="search"
+                        placeholder="Search demons..."
+                        aria-label="Search demons"
+                    >
+                </div>
+
+                <div class="demon-list" id="demon-list"></div>
+
+            </section>
+
+            <!-- RIGHT SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <section class="side-box">
+                    <h2>List Editors</h2>
+
+                    <p>
+                        The people responsible for maintaining and updating
+                        this demonlist.
+                    </p>
+
+                    <div class="editor-list">
+                        <div class="editor">
+                            <span class="editor-name">FinnPro_03</span>
+                            <span class="editor-role">Owner</span>
+                        </div>
+
+                        <div class="editor">
+                            <span class="editor-name">DemonMaster</span>
+                            <span class="editor-role">Editor</span>
+                        </div>
+
+                        <div class="editor">
+                            <span class="editor-name">LEVELREVIEWER</span>
+                            <span class="editor-role">Reviewer</span>
+                        </div>
+
+                        <div class="editor">
+                            <span class="editor-name">PlayerOne</span>
+                            <span class="editor-role">Helper</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="side-box">
+                    <h2>List Helpers</h2>
+
+                    <p>
+                        Helpers assist with record submissions, verification
+                        and other demonlist tasks.
+                    </p>
+
+                    <div class="helper-list">
+                        <div class="helper">
+                            <div class="avatar">🏆</div>
+                            <span>RecordHelper</span>
+                        </div>
+
+                        <div class="helper">
+                            <div class="avatar">🎮</div>
+                            <span>GDPlayer</span>
+                        </div>
+
+                        <div class="helper">
+                            <div class="avatar">⚡</div>
+                            <span>ExtremeDemon</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="side-box">
+                    <h2>List Information</h2>
+
+                    <p>
+                        <span class="status-dot"></span>
+                        <strong>List status:</strong> Operational
+                    </p>
+
+                    <p>
+                        Rankings and scores on this website are part of a
+                        personal, unofficial project.
+                    </p>
+                </section>
+
+            </aside>
+
+        </div>
+    </main>
+
+    <footer>
+        <strong>FakePointercrate</strong> · Personal Geometry Dash project
+        <br>
+        Unofficial fan-made website. Not affiliated with the official
+        Pointercrate Demonlist.
+    </footer>
+
+    <script>
+        // ==========================================
+        // DEMON DATA
+        // Edit this array to customize your demonlist!
+        // ==========================================
+
+        const demons = [
+            {
+                rank: 1,
+                name: "Society",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 100,
+                percent: 100,
+                list: "main",
+                image: "",
+                description: "The hardest demon on this list."
+            },
+            {
+                rank: 2,
+                name: "Thinking Space II",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 95,
+                percent: 95,
+                list: "main",
+                image: "",
+                description: "An extremely difficult extreme demon."
+            },
+            {
+                rank: 3,
+                name: "Amethyst",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 90,
+                percent: 90,
+                list: "main",
+                image: "",
+                description: "A high-ranking extreme demon."
+            },
+            {
+                rank: 4,
+                name: "Flamewall",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 85,
+                percent: 85,
+                list: "main",
+                image: "",
+                description: "A challenging demon."
+            },
+            {
+                rank: 5,
+                name: "Tidal Wave",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 80,
+                percent: 80,
+                list: "main",
+                image: "",
+                description: "A legendary extreme demon."
+            },
+            {
+                rank: 6,
+                name: "Grief",
+                creator: "Unknown Creator",
+                verifier: "Unknown Player",
+                points: 75,
+                percent: 75,
+                list: "main",
+                image: "",
+                description: "A top-level extreme demon."
+            },
+            {
+                rank: 7,
+                name: "Bloodbath",
+                creator: "Riot",
+                verifier: "Riot",
+                points: 70,
+                percent: 70,
+                list: "main",
+                image: "",
+                description: "A legendary Geometry Dash demon."
+            },
+            {
+                rank: 8,
+                name: "Cataclysm",
+                creator: "GDSheriff",
+                verifier: "GDSheriff",
+                points: 65,
+                percent: 65,
+                list: "main",
+                image: "",
+                description: "A classic extreme demon."
+            },
+
+            // EXAMPLE EXTENDED-LIST ENTRIES
+            {
+                rank: 1,
+                name: "Extended Demon Example",
+                creator: "Example Creator",
+                verifier: "Example Player",
+                points: 40,
+                percent: 40,
+                list: "extended",
+                image: "",
+                description: "An example extended-list entry."
+            },
+
+            // EXAMPLE LEGACY-LIST ENTRIES
+            {
+                rank: 1,
+                name: "Legacy Demon Example",
+                creator: "Example Creator",
+                verifier: "Example Player",
+                points: 20,
+                percent: 20,
+                list: "legacy",
+                image: "",
+                description: "An example legacy-list entry."
+            }
+        ];
+
+        // ==========================================
+        // PAGE SETTINGS
+        // ==========================================
+
+        const listNames = {
+            main: {
+                heading: "Geometry Dash Demonlist",
+                description:
+                    "The hardest demons in Geometry Dash, ranked by difficulty."
+            },
+            extended: {
+                heading: "Extended Demonlist",
+                description:
+                    "More difficult demons beyond the main list."
+            },
+            legacy: {
+                heading: "Legacy Demonlist",
+                description:
+                    "A collection of legacy demonlist entries."
+            }
+        };
+
+        let activeList = "main";
+
+        const listElement = document.getElementById("demon-list");
+        const searchInput = document.getElementById("search");
+        const countElement = document.getElementById("list-count");
+
+        // ==========================================
+        // CREATE DEMON CARDS
+        // ==========================================
+
+        function createDemonCard(demon) {
+            const card = document.createElement("article");
+            card.className = "demon-card";
+
+            const thumbnail = document.createElement("div");
+            thumbnail.className = "thumbnail";
+
+            if (demon.image) {
+                const image = document.createElement("img");
+                image.src = demon.image;
+                image.alt = demon.name + " thumbnail";
+
+                image.onerror = function () {
+                    image.remove();
+                };
+
+                thumbnail.appendChild(image);
+            }
+
+            const rankBadge = document.createElement("div");
+            rankBadge.className = "rank-badge";
+            rankBadge.textContent = "#" + demon.rank;
+            thumbnail.appendChild(rankBadge);
+
+            const thumbLabel = document.createElement("div");
+            thumbLabel.className = "thumb-label";
+            thumbLabel.textContent = demon.name;
+            thumbnail.appendChild(thumbLabel);
+
+            const info = document.createElement("div");
+            info.className = "demon-info";
+
+            const heading = document.createElement("div");
+            heading.className = "demon-heading";
+
+            const rank = document.createElement("span");
+            rank.className = "demon-rank";
+            rank.textContent = "#" + demon.rank;
+
+            const name = document.createElement("span");
+            name.className = "demon-name";
+            name.textContent = demon.name;
+            name.title = demon.description || demon.name;
+
+            heading.append(rank, name);
+
+            const creator = document.createElement("div");
+            creator.className = "creator";
+            creator.append(
+                document.createTextNode("Created by "),
+                createStrong(demon.creator),
+                document.createTextNode(" · Verified by "),
+                createStrong(demon.verifier)
+            );
+
+            const scoreHeading = document.createElement("div");
+            scoreHeading.className = "score-heading";
+            scoreHeading.textContent = "Demonlist scoring";
+
+            const scores = document.createElement("div");
+            scores.className = "scores";
+
+            const score1 = document.createElement("span");
+            score1.className = "score primary";
+            score1.append(
+                document.createTextNode("Score: "),
+                createStrong(String(demon.points))
+            );
+
+            const score2 = document.createElement("span");
+            score2.className = "score";
+            score2.append(
+                document.createTextNode("Difficulty: "),
+                createStrong(demon.percent + "%")
+            );
+
+            scores.append(score1, score2);
+
+            info.append(heading, creator, scoreHeading, scores);
+            card.append(thumbnail, info);
+
+            return card;
+        }
+
+        function createStrong(text) {
+            const element = document.createElement("strong");
+            element.textContent = text;
+            return element;
+        }
+
+        // ==========================================
+        // RENDER LIST
+        // ==========================================
+
+        function renderList() {
+            const query = searchInput.value.trim().toLowerCase();
+
+            const settings = listNames[activeList];
+
+            document.getElementById("page-heading").textContent =
+                settings.heading;
+
+            document.getElementById("page-description").textContent =
+                settings.description;
+
+            const filtered = demons
+                .filter(demon => demon.list === activeList)
+                .filter(demon =>
+                    demon.name.toLowerCase().includes(query) ||
+                    demon.creator.toLowerCase().includes(query) ||
+                    demon.verifier.toLowerCase().includes(query)
+                )
+                .sort((a, b) => a.rank - b.rank);
+
+            listElement.replaceChildren();
+
+            countElement.textContent =
+                filtered.length + (filtered.length === 1
+                    ? " demon listed"
+                    : " demons listed");
+
+            if (filtered.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "empty-state";
+                empty.textContent = "No demons found.";
+                listElement.appendChild(empty);
+                return;
+            }
+
+            filtered.forEach(demon => {
+                listElement.appendChild(createDemonCard(demon));
+            });
+        }
+
+        // ==========================================
+        // NAVIGATION TABS
+        // ==========================================
+
+        document.querySelectorAll(".tab").forEach(button => {
+            button.addEventListener("click", () => {
+                activeList = button.dataset.list;
+
+                document.querySelectorAll(".tab").forEach(tab => {
+                    tab.classList.toggle("active", tab === button);
+                });
+
+                searchInput.value = "";
+                renderList();
+            });
+        });
+
+        // ==========================================
+        // SEARCH
+        // ==========================================
+
+        searchInput.addEventListener("input", renderList);
+
+        // INITIALIZE WEBSITE
+
+        renderList();
+    </script>
+
+</body>
+</html>
